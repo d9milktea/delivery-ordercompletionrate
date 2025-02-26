@@ -115,10 +115,15 @@
   </style>
 </head>
 <body>
-  <header>
-    <h1>87%以下時的取單率計算</h1>
-    <div class="subtitle">本頁面所有數據皆為模擬計算結果僅供參考，實際以APP或公司公告顯示為主。</div>
-  </header>
+	<header>
+	  <h1>87%以下時的取單率計算</h1>
+	  <div class="subtitle" style="color: #555;">
+		本頁面所有數據皆為模擬計算結果，僅供參考；實際結果以APP或公司公告顯示為主。
+	  </div>
+	<div class="subtitle" style="color: #FF0000; font-weight: bold;">
+	  <strong>預估取單率：</strong> 預估完成單數 / 預估總派單數，再乘以 100，並四捨五入到小數點後兩位。
+	</div>
+	</header>
 
   <main id="topSection">
     <div class="input-area">
@@ -184,17 +189,19 @@
         <td>${firstRate}%</td>
       `;
       tableBody.appendChild(firstRow);
+	  
+	  let countRate = ((completed / totalOrders) * 100).toFixed(2);
 
       // 只要尚未達到 87% 取單率，就持續累計完成數與總派單數
-      while ((completed / totalOrders) <= 0.87){
+      while (countRate <= 87){
         completed++;
         totalOrders++;
-        const rate = ((completed / totalOrders) * 100).toFixed(2);
+        countRate = ((completed / totalOrders) * 100).toFixed(2);
         const row = document.createElement('tr');
         row.innerHTML = `
           <td>${totalOrders}</td>
           <td>${completed}</td>
-          <td>${rate}%</td>
+          <td>${countRate}%</td>
         `;
         tableBody.appendChild(row);
       }
